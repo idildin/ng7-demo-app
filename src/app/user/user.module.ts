@@ -8,17 +8,40 @@ import {
   ProfileComponent,
   RegisterComponent
 } from './pages';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  ForgotPasswordFormComponent,
+  LoginFormComponent,
+  RegisterFormComponent
+} from './forms';
+import {
+  NgBootstrapFormValidationModule,
+  CUSTOM_ERROR_MESSAGES
+} from 'ng-bootstrap-form-validation';
+import { CUSTOM_ERRORS } from '../shared';
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegisterComponent,
     ForgotPasswordComponent,
-    ProfileComponent
+    ProfileComponent,
+    RegisterFormComponent,
+    LoginFormComponent,
+    ForgotPasswordFormComponent
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgBootstrapFormValidationModule.forRoot(),
     UserRoutingModule
-  ]
+  ],
+  providers: [{
+    provide: CUSTOM_ERROR_MESSAGES,
+    useValue: CUSTOM_ERRORS,
+    multi: true
+  }]
 })
 export class UserModule { }

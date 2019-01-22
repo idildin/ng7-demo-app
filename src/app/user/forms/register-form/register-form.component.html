@@ -1,0 +1,32 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+  <div *ngIf="success" class="alert alert-success">
+    Registration successful. Please <a routerLink="/login">log in</a>
+  </div>
+  <div *ngIf="errorMsg" class="alert alert-danger">
+    {{ errorMsg }}
+  </div>
+  <div class="form-group">
+    <label for="email">
+      Email
+    </label>
+    <input id="email"
+           type="email"
+           class="form-control"
+           [formControlName]="'email'"
+           placeholder="Email address">
+  </div>
+  <div class="form-group">
+    <div class="form-check">
+      <input id="terms"
+             type="checkbox"
+             class="form-check-input"
+             [formControlName]="'terms'">
+      <label for="terms" class="form-check-label">Terms accepted</label>
+    </div>
+  </div>
+  <button class="btn btn-success"
+          [disabled]="submitted"
+          type="submit">
+    Register
+  </button>
+</form>

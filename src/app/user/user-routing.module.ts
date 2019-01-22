@@ -6,6 +6,7 @@ import {
   ProfileComponent,
   RegisterComponent
 } from './pages';
+import { AuthGuard } from '../guards';
 
 const routes: Routes = [
   {
@@ -17,12 +18,13 @@ const routes: Routes = [
     component: RegisterComponent
   },
   {
-    path: 'forgot-password',
+    path: 'password/forgot',
     component: ForgotPasswordComponent
   },
   {
     path: 'profile',
-    component: ProfileComponent
+    component: ProfileComponent,
+    canActivate: [AuthGuard],
   }
 ];
 

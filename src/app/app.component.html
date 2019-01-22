@@ -13,15 +13,30 @@
           Home
         </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="!auth.isAuthenticated">
         <a class="nav-link" routerLink="register" routerLinkActive="active">
           Register
         </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="!auth.isAuthenticated">
         <a class="nav-link" routerLink="login" routerLinkActive="active">
           Login
         </a>
+      </li>
+      <li class="nav-item dropdown" *ngIf="auth.isAuthenticated">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{ auth.getTokenInfo.username }}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" routerLink="profile">
+            Profile
+          </a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" (click)="logout()">
+            Logout
+          </a>
+        </div>
+      </li>
     </ul>
   </div>
 </nav>

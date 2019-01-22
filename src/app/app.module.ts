@@ -9,6 +9,27 @@ import {
   NotFoundComponent
 } from './pages';
 import { UserModule } from './user/user.module';
+import {
+  HttpClientModule,
+  HTTP_INTERCEPTORS
+} from '@angular/common/http';
+import {
+  JWT_OPTIONS,
+  JwtInterceptor,
+  JwtModule
+} from '@auth0/angular-jwt';
+import { AuthService } from './services';
+import { RefreshTokenInterceptor } from './interceptors';
+import { environment } from '../environments/environment';
+
+export function jwtOptionsFactory (authService: AuthService) {
+  return {
+    tokenGetter: () => {
+      return authService.getToken();
+    },
+    whitelistedDomains:  [environment.baseUrl],
+  };
+}
 
 @NgModule({
   declarations: [
@@ -21,8 +42,29 @@ import { UserModule } from './user/user.module';
     BrowserModule,
     UserModule,
     AppRoutingModule,
+    HttpClientModule,
+    JwtModule.forRoot({
+      jwtOptionsProvider: {
+        provide: JWT_OPTIONS,
+        useFactory: jwtOptionsFactory,
+        deps: [AuthService]
+      }
+    })
   ],
-  providers: [],
+  providers: [
+    JwtInterceptor,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RefreshTokenInterceptor,
+      multi: true
+    },
+    AuthService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
