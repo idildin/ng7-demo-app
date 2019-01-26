@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { map } from 'rxjs/operators';
+import { ChangePasswordModel } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -14,15 +14,19 @@ export class UserService {
     const terms = true;
     return this.http.post<any>(environment.apiUrl + '/signup', {
       email, terms
-    }, {}).pipe(map(user => {
-    }));
+    }, {});
   }
 
   forgotPassword(email: string) {
     return this.http.post<any>(environment.apiUrl + '/password/forgot', {
       email
-    }, {}).pipe(map(user => {
-    }));
+    }, {});
+  }
+
+  changePassword(data: ChangePasswordModel) {
+    return this.http.post<any>(environment.apiUrl + '/password/change', {
+      ...data
+    }, {});
   }
 
   me() {

@@ -10,6 +10,7 @@ import {
 } from './pages';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
+  ChangePasswordComponent,
   ForgotPasswordFormComponent,
   LoginFormComponent,
   RegisterFormComponent
@@ -28,7 +29,8 @@ import { CUSTOM_ERRORS } from '../shared';
     ProfileComponent,
     RegisterFormComponent,
     LoginFormComponent,
-    ForgotPasswordFormComponent
+    ForgotPasswordFormComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     CommonModule,

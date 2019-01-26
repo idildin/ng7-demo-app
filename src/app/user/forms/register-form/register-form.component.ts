@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  Validators
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services';
+import { collectBackendErrors } from '../../../shared';
 
 @Component({
   selector: 'user-register-form',
@@ -49,6 +45,8 @@ export class RegisterFormComponent implements OnInit {
         () => {
           this.success = true;
           this.submitted = false;
+          this.errorMsg = '';
+          this.form.reset();
         },
         error => this.handleSubmitError(error),
       );
@@ -58,24 +56,8 @@ export class RegisterFormComponent implements OnInit {
     this.submitted = false;
     if (error.status === 400) {
       const errorData = error.error.errors.children;
-      for (const fieldName in errorData) {
-        const control = this.findFieldControl(fieldName);
-        if (errorData.hasOwnProperty(fieldName) && errorData[fieldName].hasOwnProperty('errors')) {
-          this.addError(control, {
-            'server': errorData[fieldName].errors[0]
-          });
-        }
-      }
+      collectBackendErrors(this.form.controls, errorData);
     }
-  }
-
-  findFieldControl(field: string): AbstractControl {
-    return this.form.get(field);
-  }
-
-  protected addError(control: AbstractControl, error: { [key: string]: any }) {
-    const updatedErrors = Object.assign({}, control.errors, error);
-    control.setErrors(updatedErrors);
   }
 
 }
