@@ -21,6 +21,7 @@ import {
 import { AuthService } from './services';
 import { RefreshTokenInterceptor } from './interceptors';
 import { environment } from '../environments/environment';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 export function jwtOptionsFactory (authService: AuthService) {
   return {
@@ -40,6 +41,7 @@ export function jwtOptionsFactory (authService: AuthService) {
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     UserModule,
     AppRoutingModule,
     HttpClientModule,
