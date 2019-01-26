@@ -95,4 +95,8 @@ export class AuthService {
   public get getTokenInfo(): JwtInfo {
     return this.jwtHelper.decodeToken(this.getToken());
   }
+
+  get getRoles() {
+    return this.getTokenInfo.roles;
+  }
 }

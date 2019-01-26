@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {
-  AccessDeniedComponent,
+  AccessDeniedComponent, AdminComponent, DashboardComponent,
   IndexComponent,
   NotFoundComponent
 } from './pages';
@@ -21,7 +22,6 @@ import {
 import { AuthService } from './services';
 import { RefreshTokenInterceptor } from './interceptors';
 import { environment } from '../environments/environment';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 export function jwtOptionsFactory (authService: AuthService) {
   return {
@@ -37,7 +37,9 @@ export function jwtOptionsFactory (authService: AuthService) {
     AppComponent,
     NotFoundComponent,
     AccessDeniedComponent,
-    IndexComponent
+    IndexComponent,
+    DashboardComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
