@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services';
-import { ChangePasswordModel } from '../../models';
+import { ChangePassword } from '../../models';
 import { collectBackendErrors } from '../../../shared';
 
 @Component({
@@ -48,7 +48,7 @@ export class ChangePasswordComponent implements OnInit {
       return;
     }
 
-    const formData: ChangePasswordModel = Object.assign({}, this.form.value);
+    const formData: ChangePassword = Object.assign({}, this.form.value);
 
     this.userService.changePassword(formData)
       .subscribe(

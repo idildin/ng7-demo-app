@@ -1,14 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { ChangePasswordModel } from '../models';
+import { ChangePassword, Profile, User, UserAdapter } from '../models';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private adapter: UserAdapter
+    ) { }
 
   createUser(email: string) {
     const terms = true;
@@ -23,13 +28,21 @@ export class UserService {
     }, {});
   }
 
-  changePassword(data: ChangePasswordModel) {
+  changePassword(data: ChangePassword) {
     return this.http.post<any>(environment.apiUrl + '/password/change', {
       ...data
     }, {});
   }
 
-  me() {
-    return this.http.get<any>(environment.apiUrl + '/me', {});
+  changeProfile(data: Profile) {
+    return this.http.post<any>(environment.apiUrl + '/user/profile', {
+      ...data
+    }, {});
+  }
+
+  me(): Observable<User> {
+    return this.http.get<User>(environment.apiUrl + '/me').pipe(
+      map((data: any) => this.adapter.adapt(data)
+    ));
   }
 }

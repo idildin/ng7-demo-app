@@ -20,6 +20,8 @@ import {
   CUSTOM_ERROR_MESSAGES
 } from 'ng-bootstrap-form-validation';
 import { CUSTOM_ERRORS } from '../shared';
+import { ProfileFormComponent } from './forms/profile-form/profile-form.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   declarations: [
@@ -31,12 +33,14 @@ import { CUSTOM_ERRORS } from '../shared';
     LoginFormComponent,
     ForgotPasswordFormComponent,
     ChangePasswordComponent,
+    ProfileFormComponent,
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
     ReactiveFormsModule,
+    BsDatepickerModule.forRoot(),
     NgBootstrapFormValidationModule.forRoot(),
     UserRoutingModule
   ],

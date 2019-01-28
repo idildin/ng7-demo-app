@@ -1,9 +1,9 @@
-export class ChangePasswordModel {
+export class ChangePassword {
   currentPassword: string;
-  password: PasswordRepeatedModel;
+  password: PasswordRepeated;
 }
 
-export class PasswordRepeatedModel {
+export class PasswordRepeated {
   newPassword: string;
   confirmPassword: string;
 }
